@@ -26,7 +26,7 @@ export default function Home() {
       <section>
         {posts.map((post) => (
           <div className="cursor-pointer hover:bg-gray-700/10" onClick={() => navigate(`/post/${post.id}`)} key={post.id}>
-            <Post key={post.id} text={post.content} username={post.name} date={post.createdAt} avatar={post.avatar} className="border border-gray-800" onDelete={() => handleDeletePost(post.id)}/>
+            <Post key={post.id} text={post.content} username={post.name} date={post.createdAt} avatar={post.avatar} className="border border-gray-100/20" onDelete={() => handleDeletePost(post.id)}/>
           </div>
         ))}
       </section>

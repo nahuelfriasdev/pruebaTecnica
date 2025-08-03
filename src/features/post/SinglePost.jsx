@@ -50,14 +50,16 @@ export default function SinglePost () {
         </button>
         <p className="font-bold text-xl">Post</p>
       </div>
-      <Post key={post.id} text={post.content} username={post.name} date={post.createdAt} avatar={post.avatar} className="border border-gray-800"/>
-      <div className="p-10 text-lg border-b border-gray-800">
-        <Textarea className="h-16" placeholder="Postea tu respuesta" value={comment} onChange={(e) => setComment(e.target.value)}/>
-        <Button className={`${comment.length > 0 ? "bg-white" : ""}  px-2 py-2 text-sm`} text="Responder" onClick={() => handleComment()}/>
+      <Post key={post.id} text={post.content} username={post.name} date={post.createdAt} avatar={post.avatar} className="border border-gray-100/20"/>
+      <div className="px-5 py-2 text-lg border-b border-gray-100/20">
+        <Textarea className="h-8" placeholder="Postea tu respuesta" value={comment} onChange={(e) => setComment(e.target.value)}/>
+        <div className="flex justify-end mt-3 pt-3 border-t border-gray-100/20">
+          <Button className={`${comment.length > 0 ? "bg-white cursor-pointer" : ""}  px-2 py-2 text-sm`} text="Responder" onClick={() => handleComment()}/>
+        </div>
       </div>
       {comments.map((comment) => (
         <>
-          <Post key={comment.id} text={comment.content} username={comment.name} date={comment.createdAt} avatar={comment.avatar} className={`${comment.parentId ? "" : "border-t border-gray-800"}`} onDelete={() => handleDeleteComment(comment.id)}/>
+          <Post key={comment.id} text={comment.content} username={comment.name} date={comment.createdAt} avatar={comment.avatar} className={`${comment.parentId ? "" : "border-t border-gray-100/20"}`} onDelete={() => handleDeleteComment(comment.id)}/>
         </>
       ))}
     </>
