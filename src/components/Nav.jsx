@@ -20,7 +20,7 @@ export default function Nav () {
         <ul className="flex flex-col gap-4 w-[100%]">
           {links.map((link, index) => (
             <li key={index}>
-              <Link to={link.path} className="text-white hover:text-gray-400 flex items-center gap-2 font-semibold">
+              <Link to={link.path} className="text-white text-xl hover:text-gray-400 flex items-center gap-2 font-bold">
                 {link.icon} {link.name}
               </Link>
             </li>

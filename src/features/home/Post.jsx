@@ -23,7 +23,14 @@ export default function Post() {
     <>
       <div className="p-4 border border-gray-800">
         <Textarea className="p-6 text-xl" placeholder="¿Qué estas pensando?" value={post} onChange={(e) => setPost(e.target.value)}/>
-        <Button disabled={post.length == 0} text="Postear" className={`${post.length > 0 ? "bg-white" : ""}`} onClick={handlePost}/>
+          <div className="flex justify-end mt-3 pt-3 border-t border-gray-100/20">
+            <Button
+              disabled={post.length === 0}
+              text="Postear"
+              className={`${post.length > 0 ? "bg-white" : ""}`}
+              onClick={handlePost}
+            />
+          </div>
       </div>
     </>
   )
