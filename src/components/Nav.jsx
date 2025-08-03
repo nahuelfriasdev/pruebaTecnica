@@ -5,13 +5,19 @@ export default function Nav () {
 
   const links = [
     { name: "Inicio", path: "/", icon: <HomeIcon />},
+    { name: "Inicio", path: "/", icon: <HomeIcon />},
+    { name: "Inicio", path: "/", icon: <HomeIcon />},
+    { name: "Inicio", path: "/", icon: <HomeIcon />},
+    { name: "Inicio", path: "/", icon: <HomeIcon />},
+    { name: "Inicio", path: "/", icon: <HomeIcon />},
   ]
 
 
   return(
     <>
-      <nav>
-        <ul>
+      <h1 className="w-[25%]">LOGO</h1>
+      <nav className="w-[25%]">
+        <ul className="flex flex-col gap-4 w-[100%]">
           {links.map((link, index) => (
             <li key={index}>
               <Link to={link.path} className="text-white hover:text-gray-400 flex items-center gap-2 font-semibold">

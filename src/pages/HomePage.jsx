@@ -1,7 +1,10 @@
-import { Home } from "../features/home";
+import { Home, Post } from "../features/home";
 
 export default function HomePage() {
   return(
-    <Home />
+    <>
+      <Post />
+      <Home />
+    </>
   )
 }

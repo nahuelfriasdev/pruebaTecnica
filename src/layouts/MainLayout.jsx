@@ -3,8 +3,8 @@ import Nav from "../components/Nav";
 
 const Layout = () => {
   return (
-    <div className="grid grid-cols-[1fr_2fr_1fr] min-h-screen bg-black text-white">
-      <div className="border-r border-gray-800 p-4 flex justify-end">
+    <div className="grid grid-cols-[1.25fr_1fr_1.25fr] min-h-screen bg-black text-white">
+      <div className="border-r border-gray-800 p-4 flex flex-col items-end gap-y-5">
         <Nav />
       </div>
 
