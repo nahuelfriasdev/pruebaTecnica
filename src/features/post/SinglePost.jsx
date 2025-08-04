@@ -7,6 +7,7 @@ import Textarea from "../../components/Textarea";
 import Button from "../../components/Button";
 import createComment from "../../services/createComment";
 import deleteComment from "../../services/deleteComment";
+import editComment from "../../services/editComment";
 
 
 export default function SinglePost () {
@@ -32,7 +33,19 @@ export default function SinglePost () {
       await deleteComment(postId, commentId);
       fetchComments(postId)
     } catch (error) {
-      console.error("Error al borrar el commentario:", error);
+      console.error("Error al borrar el comentario:", error);
+    }
+  }
+
+  const handleEditComment = async (comment, postId,commentId) => {
+    try {
+      const date = new Date();
+      console.log(post);
+      console.log(commentId);
+      await editComment(comment, date, postId,commentId);
+      fetchComments(postId);
+    } catch (error) {
+      console.error("Error al editar el comentario:", error);
     }
   }
 
@@ -59,7 +72,7 @@ export default function SinglePost () {
       </div>
       {comments.map((comment) => (
         <>
-          <Post key={comment.id} text={comment.content} username={comment.name} date={comment.createdAt} avatar={comment.avatar} className={`${comment.parentId ? "" : "border-t border-gray-100/20"}`} onDelete={() => handleDeleteComment(comment.id)}/>
+          <Post key={comment.id} text={comment.content} username={comment.name} date={comment.createdAt} avatar={comment.avatar} className={`${comment.parentId ? "" : "border-t border-gray-100/20"}`} onDelete={() => handleDeleteComment(comment.id)} onEdit={(updatedText) => handleEditComment(updatedText,post.id,comment.id)}/>
         </>
       ))}
     </>

@@ -1,9 +1,13 @@
 import { Ellipsis, SquarePen, Trash } from "lucide-react";
 import FormatTime from "../utils/FormatTime";
 import { useState } from "react";
+import Textarea from "../components/Textarea";
+import Button from "../components/Button";
 
-export default function Post({className, text, username, date, avatar = "https://www.gravatar.com/avatar/?d=mp", onDelete}) {
+export default function Post({className, text, username, date, avatar = "https://www.gravatar.com/avatar/?d=mp", onDelete, onEdit}) {
   const [options, setOptions] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [newText, setNewText] = useState(text);
   
 
   return (
@@ -55,8 +59,29 @@ export default function Post({className, text, username, date, avatar = "https:/
                   </div>
                 )}
               </div>
+              </div>
             </div>
-            <span>{text}</span>
+            {edit ? (
+              <div>
+                <Textarea 
+                  className="p-2 text-base mt-2" 
+                  placeholder="Edita tu post" 
+                  value={newText}
+                  onClick={(e) => e.stopPropagation()}
+                  onChange={(e) => setNewText(e.target.value)} 
+                />
+                <Button disabled={newText.length == 0} text="Editar" className={`${newText.length > 0 ? "bg-white" : ""} text-sm`} 
+                onClick={(e) => {
+                    onEdit?.(newText)
+                    setEdit(!edit);
+                    e.stopPropagation();
+                  }
+                }
+                />
+              </div>
+            ) : (
+              <p className="mt-2">{text}</p>
+            )}
           </article>
         </div>
       </section>
