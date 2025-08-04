@@ -40,8 +40,6 @@ export default function SinglePost () {
   const handleEditComment = async (comment, postId,commentId) => {
     try {
       const date = new Date();
-      console.log(post);
-      console.log(commentId);
       await editComment(comment, date, postId,commentId);
       fetchComments(postId);
     } catch (error) {

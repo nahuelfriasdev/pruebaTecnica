@@ -21,8 +21,6 @@ export default function Home() {
   const handleEditPost = async (post, postId) => {
     try {
       const date = new Date();
-      console.log(post);
-      console.log(postId);
       await editPost(post, date, postId);
       fetchPosts()
     } catch (error) {
@@ -40,7 +38,7 @@ export default function Home() {
       <section>
         {posts.map((post) => (
           <div className="cursor-pointer hover:bg-gray-700/10" onClick={() => navigate(`/post/${post.id}`)} key={post.id}>
-            <Post key={post.id} text={post.content} username={post.name} date={post.createdAt} avatar={post.avatar} className="border border-gray-100/20" onDelete={() => handleDeletePost(post.id)} nEdit={(updatedText) => handleEditPost(updatedText,post.id)}/>
+            <Post key={post.id} text={post.content} username={post.name} date={post.createdAt} avatar={post.avatar} className="border border-gray-100/20" onDelete={() => handleDeletePost(post.id)} onEdit={(updatedText) => handleEditPost(updatedText,post.id)}/>
           </div>
         ))}
       </section>

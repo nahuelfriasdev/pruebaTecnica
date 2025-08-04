@@ -72,7 +72,7 @@ export default function Post({className, text, username, date, avatar = "https:/
                   onClick={(e) => e.stopPropagation()}
                   onChange={(e) => setNewText(e.target.value)} 
                 />
-                <Button disabled={newText.length == 0} text="Editar" className={`${newText.length > 0 ? "bg-white" : ""} text-sm`} 
+                <Button disabled={newText.length == 0} text="Editar" className={`${newText.length > 0 ? "bg-white cursor-pointer" : ""} text-sm`} 
                 onClick={(e) => {
                     onEdit?.(newText)
                     setEdit(!edit);
