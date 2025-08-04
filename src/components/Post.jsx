@@ -43,7 +43,10 @@ export default function Post({className, text, username, date, avatar = "https:/
                   >
                     <button
                       className="flex gap-x-2 hover:bg-gray-300/10 px-4 py-2 text-sm w-full text-left"
-                      onClick={() => setOptions(false)}
+                      onClick={() => {
+                        setOptions(false)
+                        setEdit(!edit);
+                      }}
                     >
                       <SquarePen className="w-5 h-5" /> Editar
                     </button>
@@ -58,7 +61,6 @@ export default function Post({className, text, username, date, avatar = "https:/
                     </button>
                   </div>
                 )}
-              </div>
               </div>
             </div>
             {edit ? (
