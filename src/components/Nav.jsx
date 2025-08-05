@@ -7,7 +7,6 @@ export default function Nav () {
     { name: "Inicio", path: "/", icon: <HomeIcon />},
     { name: "Perfil", path: "/", icon: <User />},
     { name: "Explorar", path: "/", icon: <Search />}
-
   ]
 
 

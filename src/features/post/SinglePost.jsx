@@ -8,6 +8,7 @@ import Button from "../../components/Button";
 import createComment from "../../services/createComment";
 import deleteComment from "../../services/deleteComment";
 import editComment from "../../services/editComment";
+import CommentThread from "../../components/CommentThread";
 
 
 export default function SinglePost () {
@@ -113,34 +114,19 @@ export default function SinglePost () {
 
       {organizedComments.map((comment) => (
         <>
-          <div>
-            <Post key={comment.id} text={comment.content} username={comment.name} date={comment.createdAt} avatar={comment.avatar} className={`${comment.parentId ? "" : "border-t border-gray-100/20"}`} onDelete={() => handleDeleteComment(comment.id)} onEdit={(updatedText) => handleEditComment(updatedText,post.id,comment.id)}/>
-            <div className={`flex gap-x-2 items-center px-5 py-2 text-sm text-gray-500 cursor-pointer select-none ${activeReplyId || comment.replies.length > 0? "" : "border-b border-gray-100/20"}`} onClick={() => setActiveReplyId(activeReplyId === comment.id ? null : comment.id)}>
-              <MessageCircle size={14} />
-              <span>Responder a {comment.name}</span>
-            </div>
-          </div>
-
-          {activeReplyId === comment.id && (
-            <div className="px-5 py-2 text-lg border-b border-gray-100/20">
-              <Textarea className="h-8" placeholder="Postea tu respuesta" value={replyText} onChange={(e) => setReplyText(e.target.value)}/>
-              <div className="flex justify-end mt-3 pt-3 border-t border-gray-100/20">
-                <Button className={`${replyText ? "bg-white cursor-pointer" : ""}  px-2 py-2 text-sm`} text={ loading ? <Loader2 className="animate-spin h-6 w-6 text-white" /> : "Responder"} onClick={() => {
-                  handleComment(comment.id)
-                  setReplyText("");
-                  setActiveReplyId(activeReplyId === comment.id ? null : comment.id)
-                }}/>
-              </div>
-            </div>
-          )}
-
-          {comment.replies.map(reply => (
-            <div className="relative ml-6 pl-4">  
-            <div className="absolute left-0 top-0 h-12 border-l border-gray-400/40"></div>
-              <Post key={reply.id} text={reply.content} username={reply.name} date={reply.createdAt} avatar={reply.avatar}  onDelete={() => handleDeleteComment(reply.id)} onEdit={(updatedText) => handleEditComment(updatedText,post.id,reply.id)}/>
-            </div>
-          ))}
-          
+          <CommentThread
+              key={comment.id}
+              comment={comment}
+              activeReplyId={activeReplyId}
+              setActiveReplyId={setActiveReplyId}
+              replyText={replyText}
+              setReplyText={setReplyText}
+              handleComment={handleComment}
+              handleDeleteComment={handleDeleteComment}
+              handleEditComment={handleEditComment}
+              loading={loading}
+              postId={post.id}
+            />
         </>
       ))}
     </>
