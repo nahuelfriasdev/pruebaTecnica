@@ -95,7 +95,9 @@ export default function SinglePost () {
         </button>
         <p className="font-bold text-xl">Post</p>
       </div>
+
       <Post key={post.id} text={post.content} username={post.name} date={post.createdAt} avatar={post.avatar} className="border border-gray-100/20"/>
+
       <div className="px-5 py-2 text-lg border-b border-gray-100/20">
         <Textarea className="h-8" placeholder="Postea tu respuesta" value={mainReplyText} onChange={(e) => {
           setMainReplyText(e.target.value)
@@ -108,6 +110,7 @@ export default function SinglePost () {
           }}/>
         </div>
       </div>
+
       {organizedComments.map((comment) => (
         <>
           <div>
@@ -117,6 +120,7 @@ export default function SinglePost () {
               <span>Responder a {comment.name}</span>
             </div>
           </div>
+
           {activeReplyId === comment.id && (
             <div className="px-5 py-2 text-lg border-b border-gray-100/20">
               <Textarea className="h-8" placeholder="Postea tu respuesta" value={replyText} onChange={(e) => setReplyText(e.target.value)}/>
@@ -129,12 +133,14 @@ export default function SinglePost () {
               </div>
             </div>
           )}
+
           {comment.replies.map(reply => (
             <div className="relative ml-6 pl-4">  
             <div className="absolute left-0 top-0 h-12 border-l border-gray-400/40"></div>
               <Post key={reply.id} text={reply.content} username={reply.name} date={reply.createdAt} avatar={reply.avatar}  onDelete={() => handleDeleteComment(reply.id)} onEdit={(updatedText) => handleEditComment(updatedText,post.id,reply.id)}/>
             </div>
           ))}
+          
         </>
       ))}
     </>
