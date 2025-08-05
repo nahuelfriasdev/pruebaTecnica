@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Post from "../../components/Post";
-import { ArrowLeft, MessageCircle } from "lucide-react";
+import { ArrowLeft, Loader2, MessageCircle } from "lucide-react";
 import { usePostStore } from "../../store/usePostStore";
 import Textarea from "../../components/Textarea";
 import Button from "../../components/Button";
@@ -15,16 +15,19 @@ export default function SinglePost () {
   const [mainReplyText, setMainReplyText] = useState("");
   const [replyText, setReplyText] = useState("");
   const [activeReplyId, setActiveReplyId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const postId = useParams().id;
   const navigate = useNavigate();
 
   const handleComment = async (parentId = null) => {
+    setLoading(true);
     try {
       const replyTextToUse = parentId ? replyText : mainReplyText;
       const date = new Date();
       const newReplyText= await createComment(replyTextToUse, date, postId, parentId);
       addComent(newReplyText)
+      setLoading(false);
       setActiveReplyId(null);
     } catch (error) {
       console.error("Error al crear el post:", error);
@@ -99,7 +102,7 @@ export default function SinglePost () {
           setActiveReplyId(null);
           }}/>
         <div className="flex justify-end mt-3 pt-3 border-t border-gray-100/20">
-          <Button className={`${mainReplyText.length > 0 ? "bg-white cursor-pointer" : ""}  px-2 py-2 text-sm`} text="Responder" onClick={() => {
+          <Button className={`${mainReplyText.length > 0 ? "bg-white cursor-pointer" : ""}  px-2 py-2 text-sm`} text={loading ? <Loader2 className="animate-spin h-6 w-6 text-white" /> : "Responder"} onClick={() => {
             handleComment()
             setMainReplyText("");
           }}/>
@@ -118,7 +121,7 @@ export default function SinglePost () {
             <div className="px-5 py-2 text-lg border-b border-gray-100/20">
               <Textarea className="h-8" placeholder="Postea tu respuesta" value={replyText} onChange={(e) => setReplyText(e.target.value)}/>
               <div className="flex justify-end mt-3 pt-3 border-t border-gray-100/20">
-                <Button className={`${replyText ? "bg-white cursor-pointer" : ""}  px-2 py-2 text-sm`} text="Responder" onClick={() => {
+                <Button className={`${replyText ? "bg-white cursor-pointer" : ""}  px-2 py-2 text-sm`} text={ loading ? <Loader2 className="animate-spin h-6 w-6 text-white" /> : "Responder"} onClick={() => {
                   handleComment(comment.id)
                   setReplyText("");
                   setActiveReplyId(activeReplyId === comment.id ? null : comment.id)
