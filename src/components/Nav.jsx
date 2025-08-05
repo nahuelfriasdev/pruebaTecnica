@@ -13,7 +13,7 @@ export default function Nav () {
 
   return(
     <>
-      <h1 className="w-[25%]">LOGO</h1>
+      <h1 className="w-[25%] font-bold">TWITTER?</h1>
       <nav className="w-[25%]">
         <ul className="flex flex-col gap-4 w-[100%]">
           {links.map((link, index) => (
