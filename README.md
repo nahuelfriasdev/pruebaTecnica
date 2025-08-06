@@ -3,6 +3,9 @@
 Este proyecto es una aplicación frontend desarrollada como parte de una prueba técnica, intenta asimilarse a Twitter. Puede ejecutarse localmente en modo desarrollo o construirse y servirse usando Docker y Nginx.
 
 ---
+## Tests . Para correr los tests usa
+
+npm run test
 
 ## 🐳 Ejecutar con Docker
 
