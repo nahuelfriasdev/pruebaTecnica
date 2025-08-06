@@ -6,13 +6,16 @@ import getPost from '../services/getPost'
 export const usePostStore = create((set) => ({
   posts: [],
   post: {},
+  loadingPost: true,
   fetchPosts: async () => {
-    const data = await getAllPosts()
-    set({ posts: data })
+    set({ loadingPost: true });
+    const data = await getAllPosts();
+    set({ posts: data, loadingPost: false });
   },
   fetchSinglePost: async (postId) => {
+    set({ loadingPost: true });
     const singlePost = await getPost(postId)
-    set({post: singlePost})
+    set({post: singlePost, loadingPost: false})
   },
   addPost: (newPost) =>
     set((state) => ({

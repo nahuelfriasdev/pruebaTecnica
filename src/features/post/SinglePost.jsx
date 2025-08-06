@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Post from "../../components/Post";
 import { ArrowLeft, Loader2, MessageCircle } from "lucide-react";
@@ -9,10 +9,11 @@ import createComment from "../../services/createComment";
 import deleteComment from "../../services/deleteComment";
 import editComment from "../../services/editComment";
 import CommentThread from "../../components/CommentThread";
+import organizeComments from "../../utils/organizeComments";
 
 
 export default function SinglePost () {
-  const { post, fetchSinglePost, comments, fetchComments, addComent } = usePostStore()
+  const { post, fetchSinglePost, comments, fetchComments, addComent, loadingPost } = usePostStore()
   const [mainReplyText, setMainReplyText] = useState("");
   const [replyText, setReplyText] = useState("");
   const [activeReplyId, setActiveReplyId] = useState(null);
@@ -20,11 +21,13 @@ export default function SinglePost () {
 
   const postId = useParams().id;
   const navigate = useNavigate();
+  const organizedComments = useMemo(() => organizeComments(comments), [comments]);
 
   const handleComment = async (parentId = null) => {
     setLoading(true);
     try {
       const replyTextToUse = parentId ? replyText : mainReplyText;
+      if (!replyTextToUse.trim()) return;
       const date = new Date();
       const newReplyText= await createComment(replyTextToUse, date, postId, parentId);
       addComent(newReplyText)
@@ -41,6 +44,8 @@ export default function SinglePost () {
       fetchComments(postId)
     } catch (error) {
       console.error("Error al borrar el comentario:", error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -54,39 +59,10 @@ export default function SinglePost () {
     }
   }
 
-  const organizeComments = (comments) => {
-    const commentMap = {};
-    const organizedComments = [];
-
-    comments.forEach(comment => {
-      commentMap[comment.id] = { ...comment, replies: [] };
-    });
-
-    console.log(commentMap);
-
-    comments.forEach(comment => {
-      const mappedComment = commentMap[comment.id];
-
-      if (comment.parentId) {
-        const parent = commentMap[comment.parentId];
-        if (parent) {
-          parent.replies.push(mappedComment);
-        } else {
-          organizedComments.push(mappedComment);
-        }
-      } else {
-        organizedComments.push(mappedComment);
-      }
-    });
-    return organizedComments;
-  };
-
-  const organizedComments = organizeComments(comments);
-
   useEffect(()=> {
     fetchSinglePost(postId);
     fetchComments(postId);
-  },[])
+  },[postId])
 
   return (
     <>
@@ -96,24 +72,31 @@ export default function SinglePost () {
         </button>
         <p className="font-bold text-xl">Post</p>
       </div>
+      {loadingPost 
+        ? <div className="flex justify-center mt-10">
+            <Loader2 className="animate-spin h-6 w-6 text-blue-500" />
+          </div>
 
-      <Post key={post.id} text={post.content} username={post.name} date={post.createdAt} avatar={post.avatar} className="border border-gray-100/20"/>
+        : <>
+          <Post text={post.content} username={post.name} date={post.createdAt} avatar={post.avatar} className="border border-gray-100/20"/>
 
-      <div className="px-5 py-2 text-lg border-b border-gray-100/20">
-        <Textarea className="h-8" placeholder="Postea tu respuesta" value={mainReplyText} onChange={(e) => {
-          setMainReplyText(e.target.value)
-          setActiveReplyId(null);
-          }}/>
-        <div className="flex justify-end mt-3 pt-3 border-t border-gray-100/20">
-          <Button className={`${mainReplyText.length > 0 ? "bg-white cursor-pointer" : ""}  px-2 py-2 text-sm`} text={loading ? <Loader2 className="animate-spin h-6 w-6 text-white" /> : "Responder"} onClick={() => {
-            handleComment()
-            setMainReplyText("");
-          }}/>
-        </div>
-      </div>
+          <div className="px-5 py-2 text-lg border-b border-gray-100/20">
+            <Textarea className="h-8" placeholder="Postea tu respuesta" value={mainReplyText} onChange={(e) => {
+              setMainReplyText(e.target.value)
+              setActiveReplyId(null);
+              }}/>
+            <div className="flex justify-end mt-3 pt-3 border-t border-gray-100/20">
+              <Button className={`${mainReplyText.length > 0 ? "bg-white cursor-pointer" : ""}  px-2 py-2 text-sm`} text={loading ? <Loader2 className="animate-spin h-6 w-6 text-white" /> : "Responder"} onClick={() => {
+                handleComment()
+                setMainReplyText("");
+              }}/>
+            </div>
+          </div>
+        </>
+      }
+      
 
       {organizedComments.map((comment) => (
-        <>
           <CommentThread
               key={comment.id}
               comment={comment}
@@ -127,7 +110,6 @@ export default function SinglePost () {
               loading={loading}
               postId={post.id}
             />
-        </>
       ))}
     </>
   )
