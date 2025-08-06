@@ -4,6 +4,15 @@ import getComents from '../services/getComments'
 import getPost from '../services/getPost'
 
 export const usePostStore = create((set) => ({
+  user:{
+    name: "Juan Gonzalez Mora",
+    username: "JuanGonzalezMora",
+    birth: "11 de enero de 2000",
+    joined: "agosto de 2025",
+    following: 103,
+    followers: 1450,
+    avatar: "https://i.pravatar.cc/150?img=11"
+  },
   posts: [],
   post: {},
   loadingPost: true,

@@ -15,7 +15,7 @@ import deletePost from "../../services/deletePost";
 
 
 export default function SinglePost () {
-  const { post, fetchSinglePost, comments, fetchComments, addComent, loadingPost } = usePostStore()
+  const { post, fetchSinglePost, comments, fetchComments, addComent, loadingPost, user } = usePostStore()
   const [mainReplyText, setMainReplyText] = useState("");
   const [replyText, setReplyText] = useState("");
   const [activeReplyId, setActiveReplyId] = useState(null);
@@ -50,7 +50,7 @@ export default function SinglePost () {
       const replyTextToUse = parentId ? replyText : mainReplyText;
       if (!replyTextToUse.trim()) return;
       const date = new Date();
-      const newReplyText= await createComment(replyTextToUse, date, postId, parentId);
+      const newReplyText= await createComment(replyTextToUse, date, user, postId, parentId);
       addComent(newReplyText)
       setLoading(false);
       setActiveReplyId(null);

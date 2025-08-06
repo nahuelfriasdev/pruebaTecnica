@@ -1,6 +1,6 @@
 const baseUrl = import.meta.env.VITE_API_URL;
 
-export default async function createComment(comment, date, postId, parentId = null) {
+export default async function createComment(comment, date, user, postId, parentId = null) {
   const response = await fetch(`${baseUrl}/post/${postId}/comment`, {
     method: 'POST',
     headers: {
@@ -8,6 +8,8 @@ export default async function createComment(comment, date, postId, parentId = nu
     },
     body: JSON.stringify({
       createdAt: new Date(date).toISOString(),
+      name:user.name,
+      avatar:user.avatar,
       content: comment,
       parentId
     })

@@ -1,6 +1,6 @@
 const baseUrl = import.meta.env.VITE_API_URL;
 
-export default async function createPost(post, date) {
+export default async function createPost(post, date, user) {
   const response = await fetch(`${baseUrl}/post`, {
     method: 'POST',
     headers: {
@@ -8,6 +8,8 @@ export default async function createPost(post, date) {
     },
     body: JSON.stringify({
       createdAt: new Date(date).toISOString(),
+      name:user.name,
+      avatar:user.avatar,
       content: post
     })
   })
