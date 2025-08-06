@@ -28,20 +28,6 @@ export default function Post() {
   return (
     <>
       <div className="text-center font-bold py-3">Para ti</div>
-      {/* <section className="w-full flex justify-center">
-        <div className="relative w-[80%] py-4">
-          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-            <Search className="w-4 h-4" />
-          </span>
-          <input
-            type="text"
-            placeholder="Buscar"
-            className="w-full pl-10 pr-4 py-2 border border-gray-100/20 rounded-full focus:outline-none bg-transparent text-white placeholder:text-gray-400"
-          />
-        </div>
-      </section> */}
-
-
       <div className="px-10 py-3 border border-gray-100/20">
         <Textarea className="p-6 text-xl" placeholder="¿Qué estas pensando?" value={post} onChange={(e) => setPost(e.target.value)}/>
         <div className="flex justify-end mt-3 pt-3 border-t border-gray-100/20">
