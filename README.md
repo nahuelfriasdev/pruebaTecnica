@@ -29,7 +29,7 @@ npm run test
 
 ### 1. Requisitos
 
-- Node.js (v18 recomendado)
+- Node.js (v22.18.0 LTS recomendado)
 
 ### 2. Instalar dependencias
 
