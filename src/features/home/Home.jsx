@@ -15,7 +15,7 @@ export default function Home() {
       await deletePost(postId);
       fetchPosts()
     } catch (error) {
-      console.error("Error al borrar el commentario:", error);
+      console.error("Error al borrar el post:", error);
     }
   }
 
@@ -25,7 +25,7 @@ export default function Home() {
       await editPost(post, date, postId);
       fetchPosts()
     } catch (error) {
-      console.error("Error al editar el commentario:", error);
+      console.error("Error al editar el post:", error);
     }
   }
     

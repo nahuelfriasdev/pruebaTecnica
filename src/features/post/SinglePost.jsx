@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Post from "../../components/Post";
-import { ArrowLeft, Loader2, MessageCircle } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { usePostStore } from "../../store/usePostStore";
 import Textarea from "../../components/Textarea";
 import Button from "../../components/Button";
@@ -10,6 +10,8 @@ import deleteComment from "../../services/deleteComment";
 import editComment from "../../services/editComment";
 import CommentThread from "../../components/CommentThread";
 import organizeComments from "../../utils/organizeComments";
+import editPost from "../../services/editPost";
+import deletePost from "../../services/deletePost";
 
 
 export default function SinglePost () {
@@ -23,6 +25,25 @@ export default function SinglePost () {
   const navigate = useNavigate();
   const organizedComments = useMemo(() => organizeComments(comments), [comments]);
 
+  const handleEditPost = async (post, postId) => {
+    try {
+      const date = new Date();
+      await editPost(post, date, postId);
+      fetchSinglePost(postId)
+    } catch (error) {
+      console.error("Error al editar el post:", error);
+    }
+  }
+
+  const handleDeletePost = async (postId) => {
+    try {
+      await deletePost(postId);
+      navigate('/')
+    } catch (error) {
+      console.error("Error al borrar el post:", error);
+    }
+  }
+
   const handleComment = async (parentId = null) => {
     setLoading(true);
     try {
@@ -34,7 +55,7 @@ export default function SinglePost () {
       setLoading(false);
       setActiveReplyId(null);
     } catch (error) {
-      console.error("Error al crear el post:", error);
+      console.error("Error al crear el comentario:", error);
     }
   }
 
@@ -78,7 +99,7 @@ export default function SinglePost () {
           </div>
 
         : <>
-          <Post text={post.content} username={post.name} date={post.createdAt} avatar={post.avatar} className="border border-gray-100/20"/>
+          <Post text={post.content} username={post.name} date={post.createdAt} avatar={post.avatar} className="border border-gray-100/20" onDelete={() => handleDeletePost(postId)} onEdit={(updatedText) => handleEditPost(updatedText,postId)}/>
 
           <div className="px-5 py-2 text-lg border-b border-gray-100/20">
             <Textarea className="h-8" placeholder="Postea tu respuesta" value={mainReplyText} onChange={(e) => {

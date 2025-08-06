@@ -2,13 +2,11 @@ import { Link } from "react-router-dom"
 import { HomeIcon, Search, User } from "lucide-react"
 
 export default function Nav () {
-
   const links = [
     { name: "Inicio", path: "/", icon: <HomeIcon />},
     { name: "Perfil", path: "/", icon: <User />},
     { name: "Explorar", path: "/", icon: <Search />}
   ]
-
 
   return(
     <>

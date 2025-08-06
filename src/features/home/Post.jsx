@@ -20,6 +20,8 @@ export default function Post() {
       setPost("");
     } catch (error) {
       console.error("Error al crear el post:", error);
+    } finally {
+      setLoading(false)
     }
   }
 
