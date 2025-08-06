@@ -76,7 +76,7 @@ export default function Header() {
 
         <div className="mt-4 border-b border-gray-100/20">
           <nav className="flex justify-around text-sm font-semibold text-gray-400">
-            {["Posts", "Respuestas", "Destacados", "Artículos", "Multimedia", "Me gusta"].map((tab, index) => (
+            {["Posts", "Respuestas", "Destacados", "Artículos", "Multimedia"].map((tab, index) => (
               <button
                 key={index}
                 className={`py-3 px-2 hover:bg-gray-100/10 ${

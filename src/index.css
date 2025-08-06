@@ -1,8 +1,1 @@
 @import "tailwindcss";
-
-@layer utilities {
-  .main-margins {
-    margin-left: calc(100vw * 1.25 / 3.65);
-    margin-right: calc(100vw * 1.25 / 3.65);
-  }
-}

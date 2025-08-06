@@ -10,13 +10,14 @@ export default function Nav () {
 
   return(
     <>
-      <h1 className="w-[25%] font-bold">TWITTER?</h1>
-      <nav className="w-[25%]">
+      <h1 className="w-[100%] lg:w-[25%] font-bold hidden md:block">TWITTER?</h1>
+      <h1 className="w-[100%] md:hidden font-bold">TW?</h1>
+      <nav className="w-[100%] lg:w-[25%]">
         <ul className="flex flex-col gap-4 w-[100%]">
           {links.map((link, index) => (
             <li key={index}>
               <Link to={link.path} className="text-white text-xl hover:text-gray-400 flex items-center gap-2 font-semibold">
-                {link.icon} {link.name}
+                <span>{link.icon}</span><span className="hidden text-base md:text-lg md:block">{link.name}</span> 
               </Link>
             </li>
           ))}
