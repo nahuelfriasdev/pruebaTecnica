@@ -1,12 +1,45 @@
-# React + Vite
+# Prueba Técnica (Version acotada red social)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una aplicación frontend desarrollada como parte de una prueba técnica, intenta asimilarse a Twitter. Puede ejecutarse localmente en modo desarrollo o construirse y servirse usando Docker y Nginx.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🐳 Ejecutar con Docker
 
-## Expanding the ESLint configuration
+### 1. Requisitos
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Docker instalado y en ejecución: https://docs.docker.com/get-docker/
+
+### 2. Construir la imagen
+
+- docker build -t prueba-tecnica .
+
+### 3. Ejecutar el contenedor
+
+- docker run -d -p 8080:80 prueba-tecnica
+
+### 4. La aplicación corre en:
+
+- http://localhost:8080
+
+## Ejecutar manualmente (modo desarrollo)
+
+### 1. Requisitos
+
+- Node.js (v18 recomendado)
+
+### 2. Instalar dependencias
+
+- npm install
+
+### 3. Ejecutar el servidor de desarrollo
+
+- npm run build
+
+### 4. Se inicia en el puerto
+
+- http://localhost:5173
+
+### Generar build de producción
+
+- npm run build
